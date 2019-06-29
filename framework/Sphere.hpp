@@ -7,7 +7,10 @@
 
 class Sphere : public Shape {
 public:
+
     Sphere(const glm::vec3 &center, float radius);
+
+    Sphere(const std::string &name, const Color &color, const glm::vec3 &center, float radius);
 
     float area() const override;
 

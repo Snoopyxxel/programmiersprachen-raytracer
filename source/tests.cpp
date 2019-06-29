@@ -37,6 +37,14 @@ TEST_CASE("area sphere", "[sphere]"){
     REQUIRE(b.area() == Approx(113.09733552923));
 }
 
+TEST_CASE("shape"){
+    std::shared_ptr<Shape> s;
+    auto sphere = std::make_shared<Sphere>(Sphere{{0,0,0}, 1});
+    s = sphere;
+    REQUIRE(s->area() == Approx(12.566370614359));
+    REQUIRE(s->volume() == Approx(4.1887902047864));
+}
+
 
 int main(int argc, char *argv[])
 {

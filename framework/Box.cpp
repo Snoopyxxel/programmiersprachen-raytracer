@@ -1,7 +1,7 @@
 #include "Box.hpp"
 #include <stdexcept>
 
-Box::Box(const glm::vec3 &min, const glm::vec3 &max) : min_(min), max_(max) {
+Box::Box(const glm::vec3 &min, const glm::vec3 &max) : Shape(), min_(min), max_(max) {
     if(min.x >= max.x or min.y >= max.y or min.z >= max.z){
         throw std::invalid_argument("min should be smaller than max in every coordinate!");
     }
@@ -20,3 +20,5 @@ float Box::volume() const {
     float hoehe = abs(min_.y - max_.y);
     return breite * hoehe * tiefe;
 }
+
+Box::Box(const std::string &name, const Color &color, const glm::vec3 &min, const glm::vec3 &max) : Shape(name, color), min_(min), max_(max) {}
