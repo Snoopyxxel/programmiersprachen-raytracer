@@ -1,4 +1,5 @@
 #include "Box.hpp"
+#include "vec3_functions.hpp"
 #include <stdexcept>
 
 Box::Box(const glm::vec3 &min, const glm::vec3 &max) : Shape(), min_(min), max_(max) {
@@ -22,3 +23,9 @@ float Box::volume() const {
 }
 
 Box::Box(const std::string &name, const Color &color, const glm::vec3 &min, const glm::vec3 &max) : Shape(name, color), min_(min), max_(max) {}
+
+std::ostream& Box::print(std::ostream &os) const {
+    Shape::print(os);
+    os << " Minimum: " << min_ << " Maximum: " << max_ << std::endl;
+    return os;
+}

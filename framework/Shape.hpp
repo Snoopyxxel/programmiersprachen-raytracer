@@ -3,7 +3,9 @@
 
 
 #include <string>
+#include <ostream>
 #include "color.hpp"
+#include <glm/vec3.hpp>
 
 class Shape {
 public:
@@ -11,7 +13,11 @@ public:
 
     virtual float area() const = 0;
     virtual float volume() const = 0;
-private:
+
+    friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
+    virtual std::ostream& print(std::ostream &os = std::cout) const;
+
+protected:
     std::string name_;
     Color color_;
 };

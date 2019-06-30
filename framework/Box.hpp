@@ -1,9 +1,8 @@
-#include "Shape.hpp"
-#include <glm/vec3.hpp>
-
 #ifndef RAYTRACER_BOX_HPP
 #define RAYTRACER_BOX_HPP
 
+#include "Shape.hpp"
+#include <glm/vec3.hpp>
 
 class Box : public Shape {
 public:
@@ -15,6 +14,8 @@ public:
     float area() const override;
 
     float volume() const override;
+
+    std::ostream& print(std::ostream &os = std::cout) const override;
 
 private:
     glm::vec3 min_;
