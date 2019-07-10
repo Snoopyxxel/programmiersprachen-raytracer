@@ -93,6 +93,20 @@ TEST_CASE("intersect sphere"){
     REQUIRE(result.intersection_ray_direction == glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
+TEST_CASE("intersect box"){
+    std::set<float> test;
+    test.insert(5.0f);
+
+    Color red{255, 0, 0};
+    Box box1{"box1", red, {0, 0, 0}, {1, 1, 1}};
+    Ray ray1{{0.5f, 0.5f, -1.0f}, {0.0f,0.0f,1.0f}};
+    auto result1 = box1.intersect(ray1);
+    float test_intersect;
+    REQUIRE(glm::intersectRayPlane(glm::vec3{0, 0, 0}, glm::vec3{0, 0, -1}, glm::vec3{0, 0, 1}, glm::vec3{0, 0, 1}, test_intersect));
+    std::cout << test_intersect;
+    REQUIRE(result1.intersected);
+    REQUIRE(result1.intersection_point == glm::vec3(0.5f, 0.5f, 0.0f));
+}
 
 int main(int argc, char *argv[])
 {

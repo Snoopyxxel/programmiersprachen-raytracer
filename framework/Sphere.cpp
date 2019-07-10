@@ -34,9 +34,9 @@ HitPoint Sphere::intersect(Ray &ray) const {
         name = name_;
         color = color_;
     }
-    return HitPoint{result, distance, name, color, distance * ray.direction, ray.direction};
+    return HitPoint{result, distance, name, color,ray.origin + distance * ray.direction, ray.direction};
 }
 
 std::ostream &operator<<(std::ostream &os, const Sphere &sphere) {
-
+    return sphere.print(os);
 }

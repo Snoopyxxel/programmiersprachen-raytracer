@@ -22,7 +22,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Sphere &sphere);
 
-    HitPoint intersect(Ray &ray) const;
+    HitPoint intersect(Ray &ray) const override;
 
 private:
     glm::vec3 center_;
