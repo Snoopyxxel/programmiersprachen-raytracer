@@ -8,10 +8,12 @@
 #include "ray.hpp"
 #include "hitpoint.hpp"
 #include <glm/vec3.hpp>
+#include <memory>
 
 class Shape {
 public:
-    Shape(std::string const &name = "", const Color &color = {1,1,1});
+    Shape();
+    Shape(std::string const &name, std::shared_ptr<Material> const& material);
 
     virtual float area() const = 0;
     virtual float volume() const = 0;
@@ -24,7 +26,7 @@ public:
 
 protected:
     std::string name_;
-    Color color_;
+    std::shared_ptr<Material> material_;
 };
 
 

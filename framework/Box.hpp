@@ -9,7 +9,7 @@ public:
 
     Box(const glm::vec3 &min, const glm::vec3 &max);
 
-    Box(const std::string &name, const Color &color, const glm::vec3 &min, const glm::vec3 &max);
+    Box(const std::string &name, const Material &material, const glm::vec3 &min, const glm::vec3 &max);
 
     float area() const override;
 

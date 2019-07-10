@@ -25,11 +25,11 @@ float Box::volume() const {
     return breite * hoehe * tiefe;
 }
 
-Box::Box(const std::string &name, const Color &color, const glm::vec3 &min, const glm::vec3 &max) : Shape(name, color), min_(min), max_(max) {}
+Box::Box(const std::string &name, const Material &material, const glm::vec3 &min, const glm::vec3 &max) : Shape(name, material), min_(min), max_(max) {}
 
 std::ostream& Box::print(std::ostream &os) const {
     Shape::print(os);
-    os << " Minimum: " << min_ << " Maximum: " << max_ << std::endl;
+    os << "; Minimum: " << min_ << "; Maximum: " << max_ << std::endl;
     return os;
 }
 
@@ -61,12 +61,13 @@ HitPoint Box::intersect(Ray &ray) const {
 
     std::string name = "";
     Color color = {-1, -1, -1};
+    Material material{"no_color", color, color, color, -1};
     bool result = false;
     if(*checked_distance.begin() != 0){
         name = name_;
-        color = color_;
+        material = material_;
         result = true;
     }
 
-    return HitPoint{result, *checked_distance.begin(), name, color, ray.origin + *checked_distance.begin() * ray.direction, ray.direction};
+    return HitPoint{result, *checked_distance.begin(), name, material, ray.origin + *checked_distance.begin() * ray.direction, ray.direction};
 }
