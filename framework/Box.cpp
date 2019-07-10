@@ -25,7 +25,7 @@ float Box::volume() const {
     return breite * hoehe * tiefe;
 }
 
-Box::Box(const std::string &name, const Material &material, const glm::vec3 &min, const glm::vec3 &max) : Shape(name, material), min_(min), max_(max) {}
+Box::Box(const std::string &name, const std::shared_ptr<Material> &material, const glm::vec3 &min, const glm::vec3 &max) : Shape(name, material), min_(min), max_(max) {}
 
 std::ostream& Box::print(std::ostream &os) const {
     Shape::print(os);
@@ -61,7 +61,7 @@ HitPoint Box::intersect(Ray &ray) const {
 
     std::string name = "";
     Color color = {-1, -1, -1};
-    Material material{"no_color", color, color, color, -1};
+    auto material = std::make_shared<Material>("no_color", color, color, color, -1);
     bool result = false;
     if(*checked_distance.begin() != 0){
         name = name_;

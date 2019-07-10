@@ -1,8 +1,8 @@
 #include "Material.hpp"
 
 std::ostream &operator<<(std::ostream &os, const Material &material) {
-    os << "{ Name: " << material.name << " ka: " << material.ka << " kd: " << material.kd << " ks: " << material.ks
-       << " m: " << material.m << " }";
+    os << "{ Name: " << material.name << ", ka: " << material.ka << ", kd: " << material.kd << ", ks: " << material.ks
+       << ", m: " << material.m << " }";
     return os;
 }
 

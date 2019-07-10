@@ -14,7 +14,7 @@ float Sphere::area() const {
     return 4 * M_PI * pow(radius_, 2);
 }
 
-Sphere::Sphere(const std::string &name, const Material &material, const glm::vec3 &center, float radius) : Shape(name, material),
+Sphere::Sphere(const std::string &name, const std::shared_ptr<Material> &material, const glm::vec3 &center, float radius) : Shape(name, material),
                                                                                                      center_(center),
                                                                                                      radius_(radius) {}
 
@@ -30,7 +30,7 @@ HitPoint Sphere::intersect(Ray &ray) const {
     auto result = glm::intersectRaySphere(ray.origin, ray.direction, center_, radius_ * radius_, distance);
     std::string name = "";
     Color color = {-1, -1, -1};
-    Material material{"no_color", color, color, color, -1};
+    auto material = std::make_shared<Material>("no_color", color, color, color, -1);
     if(result){
         name = name_;
         material = material_;

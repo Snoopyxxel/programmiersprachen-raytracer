@@ -12,7 +12,7 @@ public:
 
     Sphere(const glm::vec3 &center, float radius);
 
-    Sphere(const std::string &name, const Material &material, const glm::vec3 &center, float radius);
+    Sphere(const std::string &name, const std::shared_ptr<Material> &material, const glm::vec3 &center, float radius);
 
     float area() const override;
 

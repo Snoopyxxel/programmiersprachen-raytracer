@@ -51,8 +51,8 @@ TEST_CASE("shape"){
 TEST_CASE("print shape"){
     std::shared_ptr<Shape> s;
     Color red_c{255, 0, 0};
-    Material red{"red", red_c, red_c, red_c, 1};
-    auto sphere = std::make_shared<Sphere>(Sphere{"Sphere1", red,{0,0,0}, 1});
+    auto red = std::make_shared<Material>("red", red_c, red_c, red_c, 1);
+    auto sphere = std::make_shared<Sphere>(Sphere{"Sphere1", red, {0,0,0}, 1});
     s = sphere;
     s->print();
     std::cout << *s;
@@ -85,11 +85,11 @@ TEST_CASE("intersect_ray_sphere" , "[intersect]"){
 TEST_CASE("intersect sphere"){
     Ray ray{{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
     Color red_c{255, 0, 0};
-    Material red{"red", red_c, red_c, red_c, 1};
+    auto red = std::make_shared<Material>("red", red_c, red_c, red_c, 1);
     Sphere sphere{"test_sphere", red, {0.0f, 0.0f, 5.0f}, 1.0f};
     auto result = sphere.intersect(ray);
     REQUIRE(result.intersected);
-    REQUIRE(result.material.ka.r == red_c.r);
+    REQUIRE(result.material->ka.r == red_c.r);
     REQUIRE(result.name == "test_sphere");
     REQUIRE(result.distance == 4.0f);
     REQUIRE(result.intersection_point == glm::vec3(0.0f, 0.0f, 4.0f));
@@ -101,7 +101,7 @@ TEST_CASE("intersect box"){
     test.insert(5.0f);
 
     Color red_c{255, 0, 0};
-    Material red{"red", red_c, red_c, red_c, 1};
+    auto red = std::make_shared<Material>("red", red_c, red_c, red_c, 1);
     Box box1{"box1", red, {0, 0, 0}, {1, 1, 1}};
     Ray ray1{{0.5f, 0.5f, -1.0f}, {0.0f,0.0f,1.0f}};
     auto result1 = box1.intersect(ray1);
