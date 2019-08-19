@@ -118,7 +118,7 @@ TEST_CASE("TestCase_7   sdf_files  aufg 6.5 ","[aufgabe 6.5]") {
 
 TEST_CASE("Scene test") {
     std::shared_ptr<Scene> sc_1 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
-    get_SDF_File("/home/vito/Desktop/Uni/Programmiersprachen/scene_1.sdf",*sc_1);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
+    get_SDF_File("/scene/scene_1.sdf",*sc_1);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
     std::cout<<"search_mat_printout \n:"<<*search_mat("red",*sc_1)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
     REQUIRE(search_mat("black",*sc_1)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
 
