@@ -121,6 +121,8 @@ TEST_CASE("Scene test") {
     get_SDF_File("/home/vito/Desktop/Uni/Programmiersprachen/scene_1.sdf",*sc_1);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
     std::cout<<"search_mat_printout \n:"<<*search_mat("red",*sc_1)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
     REQUIRE(search_mat("black",*sc_1)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
+
+    std::cout << "Hello team-raytracer"; 
 /*
   std::shared_ptr<Scene> sc_2 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
 	get_SDF_File("/home/simon/Desktop/scene_1.sdf",*sc_2);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
@@ -133,6 +135,7 @@ TEST_CASE("Scene test") {
 */
 
 }
+
 
 int main(int argc, char *argv[])
 {
