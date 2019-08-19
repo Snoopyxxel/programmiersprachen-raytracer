@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "vec3_functions.hpp"
 #include <glm/gtx/intersect.hpp>
+#include <scene.hpp>
 
 TEST_CASE("area box", "[box]"){
     Box a{{5.0f, 5.0f, 2.0f}, {9.0f,9.0f,3.0f}};
@@ -110,6 +111,27 @@ TEST_CASE("intersect box"){
     std::cout << test_intersect;
     REQUIRE(result1.intersected);
     REQUIRE(result1.intersection_point == glm::vec3(0.5f, 0.5f, 0.0f));
+}
+
+TEST_CASE("TestCase_7   sdf_files  aufg 6.5 ","[aufgabe 6.5]") {
+}
+
+TEST_CASE("Scene test") {
+    std::shared_ptr<Scene> sc_1 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
+    get_SDF_File("/home/vito/Desktop/Uni/Programmiersprachen/scene_1.sdf",*sc_1);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
+    std::cout<<"search_mat_printout \n:"<<*search_mat("red",*sc_1)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
+    REQUIRE(search_mat("black",*sc_1)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
+/*
+  std::shared_ptr<Scene> sc_2 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
+	get_SDF_File("/home/simon/Desktop/scene_1.sdf",*sc_2);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
+  std::cout<<"search_vec_printout :"<<*search_vec("red",*sc_2)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
+  REQUIRE(search_mat("black",*sc_2)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
+  std::shared_ptr<Scene> sc_3 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
+	get_SDF_File("/home/simon/Desktop/scene_1.sdf",*sc_3);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
+  std::cout<<"search_set_printout :"<<*search_set("red",*sc_3)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
+  REQUIRE(search_mat("black",*sc_3)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
+*/
+
 }
 
 int main(int argc, char *argv[])
