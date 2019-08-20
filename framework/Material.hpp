@@ -8,10 +8,10 @@
 
 struct Material {
     std::string name;
-    Color ka;
-    Color kd;
-    Color ks;
-    float m;
+    Color ka;  // Reflexionsfaktor für ambientes Licht
+    Color kd;  // Reflexionsfaktor für diffuses Licht
+    Color ks;  // Reflexionsfaktor für spiegelndes Licht
+    float m;   // Exponent zur Beschreibung der Oberflächenbeschaffenheit
 
     friend std::ostream &operator<<(std::ostream &os, const Material &material);
 
