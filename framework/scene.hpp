@@ -13,6 +13,8 @@
 #include "Box.hpp"
 #include "Sphere.hpp"
 #include "Triangle.hpp"
+#include "camera.hpp"
+#include "light.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -22,6 +24,12 @@ struct Scene {
     std::vector<std::shared_ptr<Material>> vec_mat;
     std::set<std::shared_ptr<Material>> set_mat;
     std::map<std::string,std::shared_ptr<Material>> map_mat;
+
+    std::shared_ptr<Camera> camera_;
+    std::shared_ptr<Light> light_;
+    std::shared_ptr<Box> box_;
+    std::shared_ptr<Sphere> sphere_;
+
 
 };
 
@@ -95,7 +103,7 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
     in_file.close();
 }
 
-static std::shared_ptr<Material> search_mat(std::string name, Scene& scene){
+static std::shared_ptr<Material> search_map(std::string name, Scene& scene){
 
     auto it = scene.map_mat.find(name);
     if(it != scene.map_mat.end()){
