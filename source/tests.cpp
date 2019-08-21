@@ -6,6 +6,8 @@
 #include "vec3_functions.hpp"
 #include <glm/gtx/intersect.hpp>
 #include <scene.hpp>
+#include "camera.hpp"
+#include "light.hpp"
 
 TEST_CASE("area box", "[box]"){
     Box a{{5.0f, 5.0f, 2.0f}, {9.0f,9.0f,3.0f}};
@@ -122,7 +124,7 @@ TEST_CASE("Scene test") {
     std::cout<<"search_mat_printout \n:"<<*search_mat("red",*sc_1)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
     REQUIRE(search_mat("black",*sc_1)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
 
-    std::cout << "Hello team-raytracer"; 
+    std::cout << "Hello team-raytracer \n"; 
 /*
   std::shared_ptr<Scene> sc_2 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
 	get_SDF_File("/home/simon/Desktop/scene_1.sdf",*sc_2);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
@@ -133,6 +135,21 @@ TEST_CASE("Scene test") {
   std::cout<<"search_set_printout :"<<*search_set("red",*sc_3)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
   REQUIRE(search_mat("black",*sc_3)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
 */
+
+}
+
+TEST_CASE("TestCase_test   camera.hpp and light.hpp as  structs ok  ","[7xx]") {
+
+    glm::vec3 test_vec{0.0f, 0.0f, 1.0f};
+    Camera cam_1{"cam1",test_vec,test_vec,test_vec,test_vec};
+    std::cout << "Hello cam1 \n"; 
+    std::cout << cam_1;
+
+    std::cout << "Hello sun \n"; 
+    glm::vec3 test_vec_sun{1.0f, 1.0f, 1.0f};
+    Color co_sun{255,255,255};
+    Light li_1{"sun_1",test_vec_sun,co_sun,0.5f};
+    std::cout << li_1;
 
 }
 
