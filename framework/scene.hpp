@@ -21,15 +21,10 @@
 
 
 struct Scene {
-    std::vector<std::shared_ptr<Material>> vec_mat;
-    std::set<std::shared_ptr<Material>> set_mat;
+    std::vector<std::shared_ptr<Shape>> shape_list;
+    float ambient_light_;
+    std::vector<std::shared_ptr<Light>> light_list_;
     std::map<std::string,std::shared_ptr<Material>> map_mat;
-
-    std::shared_ptr<Camera> camera_;
-    std::shared_ptr<Light> light_;
-    std::shared_ptr<Box> box_;
-    std::shared_ptr<Sphere> sphere_;
-
 
 };
 
@@ -93,8 +88,6 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                 Material current_loop_mat{col_as_name,{ka_red,ka_green,ka_blue},{kd_red,kd_green,kd_blue},{ks_red,ks_green,ks_blue},f1};
                 auto m1 = std::make_shared<Material>(current_loop_mat);
                 std::cout << current_loop_mat << std::endl;
-                scene.vec_mat.push_back(m1);
-                scene.set_mat.insert(m1);
                 scene.map_mat.emplace(col_as_name,m1);
 
             }
