@@ -37,17 +37,18 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
         std::istringstream current_line_string_stream(line_buffer);
         std::string identifier;
         current_line_string_stream >> identifier;
-
+        std::cout << "this is in the while-loop of get_SDF_File-method  \n";
         //file.open(path);
 
         if( "define" == identifier ) {
+            "this is if- define  \n";
             current_line_string_stream >> identifier;
+            
 
             if("material" == identifier) {
-                std::cout << "this is in the while-loop of get_SDF_File-method  \n";
+                std::cout <<"this is if- material  \n";
 
                 std::string col_as_name;
-
                 current_line_string_stream >> col_as_name;
 
                 float ka_red, ka_green, ka_blue;
@@ -69,21 +70,21 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
 
                 current_line_string_stream >> f1;
 
-                std::cout << col_as_name << std::endl;
+                std::cout << col_as_name << ", ";
 
-                std::cout << ka_red << std::endl;
-                std::cout << ka_green << std::endl;
-                std::cout << ka_blue << std::endl;
+                std::cout << ka_red << " ";
+                std::cout << ka_green << " ";
+                std::cout << ka_blue << ", ";
 
-                std::cout << kd_red << std::endl;
-                std::cout << kd_green << std::endl;
-                std::cout << kd_blue << std::endl;
+                std::cout << kd_red << " ";
+                std::cout << kd_green << " ";
+                std::cout << kd_blue << ", ";
 
-                std::cout << ks_red << std::endl;
-                std::cout << ks_green << std::endl;
-                std::cout << ks_blue << std::endl;
+                std::cout << ks_red << " ";
+                std::cout << ks_green << " ";
+                std::cout << ks_blue << ", ";
 
-                std::cout << f1 << std::endl;
+                std::cout << "\n\n f1 ist : " << f1 << std::endl;
 
                 Material current_loop_mat{col_as_name,{ka_red,ka_green,ka_blue},{kd_red,kd_green,kd_blue},{ks_red,ks_green,ks_blue},f1};
                 auto m1 = std::make_shared<Material>(current_loop_mat);
@@ -92,16 +93,42 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
 
             }
             if("shape" == identifier) {
-                current_line_string_stream >> identifier;
                 std::cout << "this is if- shape   \n";
+                current_line_string_stream >> identifier;                
 
                 if("box" == identifier){
-                    current_line_string_stream >> identifier;
                     std::cout << "   this is if- box   \n";
 
+                    std::string box_name;
+                    current_line_string_stream >> box_name;
+
+                    glm::vec3 min;
+                    glm::vec3 max;
+                    std::string mat;
+                    std::shared_ptr<Material> ptr_m;
+
+                    current_line_string_stream >> min.x;
+                    current_line_string_stream >> min.y;
+                    current_line_string_stream >> min.z;
+
+                    current_line_string_stream >> max.x;
+                    current_line_string_stream >> max.y;
+                    current_line_string_stream >> max.z;
+
+                    current_line_string_stream >> mat;
+
+                    auto it = scene.map_mat.find(mat);
+                    if (it != scene.map_mat.end()){
+                      ptr_m = it->second;
+                    }
+
+                    Box box{box_name, ptr_m, min, max};
+                    scene.shape_list.push_back(std::make_shared<Box>(box));
+                    
                 }else if("sphere" == identifier){
-                    current_line_string_stream >> identifier;
                     std::cout << "   this is else if- sphere   \n";
+                    current_line_string_stream >> identifier;
+                    
                 }
             }
             if("light" == identifier) {
