@@ -91,6 +91,32 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                 scene.map_mat.emplace(col_as_name,m1);
 
             }
+            if("shape" == identifier) {
+                current_line_string_stream >> identifier;
+                std::cout << "this is if- shape   \n";
+
+                if("box" == identifier){
+                    current_line_string_stream >> identifier;
+                    std::cout << "   this is if- box   \n";
+
+                }else if("sphere" == identifier){
+                    current_line_string_stream >> identifier;
+                    std::cout << "   this is else if- sphere   \n";
+                }
+            }
+            if("light" == identifier) {
+                current_line_string_stream >> identifier;
+                std::cout << "this is if light \n";
+            }
+            if("camera" == identifier) {
+                current_line_string_stream >> identifier;
+                std::cout << "this is if camera  \n";
+            }
+            if("render" == identifier) {
+                current_line_string_stream >> identifier;
+                std::cout << "this is if - render  \n";
+            }
+            
         }
     }
     in_file.close();

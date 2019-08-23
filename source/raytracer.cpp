@@ -28,12 +28,12 @@ int main(int argc, char* argv[])
   auto ptr_sph_1 = std::make_shared<Sphere>(sp_1); 
   Box bo_1{{0,0,0}, {1,1,1}};
   auto ptr_bo_1 = std::make_shared<Box>(bo_1); 
-
+/*
   sc_1.camera_ = ptr_cam_1;
   sc_1.light_ = ptr_li_1;
   sc_1.box_ = ptr_bo_1;
   sc_1.sphere_ = ptr_sph_1 ;
-  
+*/ 
 
   Renderer renderer{image_width, image_height, filename};
 
