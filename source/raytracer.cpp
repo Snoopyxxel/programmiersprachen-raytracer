@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
   Light li_1{"sun_1",{1.0f, 1.0f, 1.0f},{255,255,255},0.5f};
   auto ptr_li_1 = std::make_shared<Light>(li_1);
   // Illumination ill_1{};  // Grundbeleuchtung noch zu implement.
-  Camera cam_1{"cam_1",{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f}};
-  auto ptr_cam_1 = std::make_shared<Camera>(cam_1);
+  //Camera cam_1{"cam_1",{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f}};
+//  auto ptr_cam_1 = std::make_shared<Camera>(cam_1);
   Sphere sp_1{{0, 0, 0}, 5};
   auto ptr_sph_1 = std::make_shared<Sphere>(sp_1); 
   Box bo_1{{0,0,0}, {1,1,1}};

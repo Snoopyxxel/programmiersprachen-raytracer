@@ -119,12 +119,16 @@ TEST_CASE("TestCase_7   sdf_files  aufg 6.5 ","[aufgabe 6.5]") {
 }
 
 TEST_CASE("Scene test") {
+
+    std::cout << "\n\nScene-Content-Test\n\n";
     std::shared_ptr<Scene> sc_1 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
     get_SDF_File("/scene/scene_1.sdf",*sc_1);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
     std::cout<<"search_mat_printout \n:"<<*search_map("red",*sc_1)<<"\n"; // liefert zeiger zurück, daher noch dereferenz vor print
     REQUIRE(search_map("black",*sc_1)==nullptr); // ausnahmefall wenn keine uebereinstimmung gefunden
 
-    std::cout << "Hello team-raytracer \n"; 
+    //std::cout << "\nthe ambient_light_ of this scene is" << sc_1.ambient_light_; // warum hier kein direkter zugriff auf attr auch bei public nicht mgl.?
+    std::cout << "\nthe ambient_light_ of this scene is:    " << get_ambient_light_(*sc_1);
+    std::cout << "\nHello team-raytracer \n"; 
 /*
   std::shared_ptr<Scene> sc_2 = std::make_shared<Scene>(); //erzeugt Zeiger auf Scene-objekt (struct)
 	get_SDF_File("/home/simon/Desktop/scene_1.sdf",*sc_2);  // einlesen d pfades als string, derefer. zeiger auf scene-objekt
@@ -142,9 +146,9 @@ TEST_CASE("Scene test") {
 TEST_CASE("TestCase_test   camera.hpp and light.hpp as  structs ok  ","[7xx]") {
 
     glm::vec3 test_vec{0.0f, 0.0f, 1.0f};
-    Camera cam_1{"cam1",test_vec,test_vec,test_vec,test_vec};
+ //   Camera cam_1{"cam1",test_vec,test_vec,test_vec,test_vec};
     std::cout << "Hello cam1 \n"; 
-    std::cout << cam_1;
+ //   std::cout << cam_1;
 
     std::cout << "Hello sun \n"; 
     glm::vec3 test_vec_sun{1.0f, 1.0f, 1.0f};
@@ -153,7 +157,6 @@ TEST_CASE("TestCase_test   camera.hpp and light.hpp as  structs ok  ","[7xx]") {
     std::cout << li_1;
 
 }
-
 
 int main(int argc, char *argv[])
 {
