@@ -8,6 +8,8 @@
 // -----------------------------------------------------------------------------
 
 #include "renderer.hpp"
+#include "ray.hpp"
+#include "scene.hpp"
 
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   : width_(w)
@@ -17,19 +19,31 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   , ppm_(width_, height_)
 {}
 
-void Renderer::render()
+void Renderer::render(Scene const& scene)
 {
   std::size_t const checker_pattern_size = 20;
+  float d = (width_ / 2.0f) / (tanf(scene.camera_->fov_x_ / 2.0f));
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
+      Ray ray{scene.camera_->pos_, {x-(width_ / 2.0f), y - (height_ / 2.0f), -d}};
+      ray.direction = glm::normalize(ray.direction);
+
+
+      p.color = Color{1.0f, 1.0f, 1.0f};
+      for (auto const& obj : scene.shape_list){
+          if (obj->intersect(ray).intersected){
+              p.color = Color{0.0f, 0.0f, 0.0f};
+          }
+      }
+      /*
       if ( ((x/checker_pattern_size)%2) != ((y/checker_pattern_size)%2)) {
         p.color = Color{0.0f, 1.0f, float(x)/height_};
       } else {
         p.color = Color{1.0f, 0.0f, float(y)/width_};
       }
-
+      */
       write(p);
     }
   }

@@ -6,7 +6,7 @@ bool check_obstruction(glm::vec3 const &p1, glm::vec3 const &p2) {
     return false;
 }
 
-float Scene::phong(glm::vec3 const &in) {
+/*float phong(glm::vec3 const &in) {
     std::vector<std::pair<std::shared_ptr<Light>,float>> eval_lights;
     for (auto const& light : light_list_){
         if (!obstructed(in, light->pos_)){
@@ -14,9 +14,9 @@ float Scene::phong(glm::vec3 const &in) {
 
         }
     }
-}
+}*/
 
-
+/*
 for all light sources in scene:
 
     check if any object is between light source and object, if yes, do nothing
@@ -26,4 +26,4 @@ for all light sources in scene:
     store distance of light sources to intersection and with the distances compute brightness factor
 
     use brightness factor and the material coefficients to calculate illumination with phong equation
-
+*/

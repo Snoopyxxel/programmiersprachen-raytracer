@@ -33,8 +33,49 @@ std::ostream& Box::print(std::ostream &os) const {
     return os;
 }
 
-HitPoint Box::intersect(Ray &ray) const {
-    Ray ray1 = {ray.origin, -(ray.direction)};
+HitPoint Box::intersect(Ray &r) const {
+    Ray r1 = {r.origin, r.direction};
+
+    r1.direction = glm::normalize(r.direction);
+    float tmin = (min_.x - r1.origin.x) / r1.direction.x;
+    float tmax = (max_.x - r1.origin.x) / r1.direction.x;
+
+    if (tmin > tmax) std::swap(tmin, tmax);
+
+    float tymin = (min_.y - r1.origin.y) / r1.direction.y;
+    float tymax = (max_.y - r1.origin.y) / r1.direction.y;
+
+    if (tymin > tymax) std::swap(tymin, tymax);
+
+    if ((tmin > tymax) || (tymin > tmax))
+        return HitPoint{false};
+
+    if (tymin > tmin)
+        tmin = tymin;
+
+    if (tymax < tmax)
+        tmax = tymax;
+
+    float tzmin = (min_.z - r1.origin.z) / r1.direction.z;
+    float tzmax = (max_.z - r1.origin.z) / r1.direction.z;
+
+    if (tzmin > tzmax) std::swap(tzmin, tzmax);
+
+    if ((tmin > tzmax) || (tzmin > tmax))
+        return HitPoint{false};
+
+    if (tzmin > tmin)
+        tmin = tzmin;
+
+    //if (tzmax < tmax)
+    //    tmax = tzmax;
+
+    return HitPoint{true, tmin, name_, material_, r1.origin + tmin * r1.direction, r1.direction};
+
+
+
+    /*
+    Ray ray1 = {ray.origin, -ray.direction};
 
     ray1.direction = glm::normalize(ray1.direction);
 
@@ -70,4 +111,5 @@ HitPoint Box::intersect(Ray &ray) const {
     }
 
     return HitPoint{result, *checked_distance.begin(), name, material, ray.origin + *checked_distance.begin() * ray.direction, ray.direction};
+     */
 }

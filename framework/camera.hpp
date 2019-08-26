@@ -3,26 +3,26 @@
 #include <glm/vec3.hpp>
 #include <string>
 #include <cmath>
+#include "vec3_functions.hpp"
 
 struct Camera{
 
     std::string name_;
-    glm::vec3 campos_;
-    glm::vec3 camdir_;
-    glm::vec3 camright_;
-    glm::vec3 camdown_;
+    glm::vec3 pos_;
+    glm::vec3 dir_;
+    float fov_x_;
+    glm::vec3 up_;
 
-    Camera(std::string name, glm::vec3 campos, glm::vec3 camdir, glm::vec3 camright, glm::vec3 camdown):
-    name_(name), campos_(campos), camdir_(camdir), camright_(camright), camdown_(camdown){}
+    Camera(const std::string &name, const glm::vec3 &pos, const glm::vec3 &dir, float fovX, const glm::vec3 &up)
+            : name_(name), pos_(pos), dir_(dir), fov_x_(fovX), up_(up) {}
 
     friend std::ostream& operator<<(std::ostream& os, Camera const& cam)
 	{
 		os << "Name: " << cam.name_ 
-			<< ", campos: (" << cam.campos_.x << ", " << cam.campos_.y << ", " << cam.campos_.z 
-			<< "), camdir: (" << cam.camdir_.x << ", " << cam.camdir_.y << ", " << cam.camdir_.z 
-			<< "), camright: (" << cam.camright_.x << ", " << cam.camright_.y << ", " << cam.camright_.z 
-            << "), camdown: (" << cam.camdown_.x << ", " << cam.camdown_.y << ", " << cam.camdown_.z 
-			<< "), Öffnungswinkel Fov noch nicht implementiert: " << "\n";
+			<< "; campos: " << cam.pos_
+			<< "; camdir: " << cam.dir_
+			<< "; fov: " << cam.fov_x_
+            << "; camup: " << cam.up_;
 		return os;
 	}
 };

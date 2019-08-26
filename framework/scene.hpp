@@ -25,7 +25,7 @@ struct Scene {
     float ambient_light_;
     std::vector<std::shared_ptr<Light>> light_list_;
     std::map<std::string,std::shared_ptr<Material>> map_mat;
-
+    std::shared_ptr<Camera> camera_;
 };
 
 static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fkt., bekommt

@@ -18,28 +18,31 @@ int main(int argc, char* argv[])
   unsigned const image_height = 600;
   std::string const filename = "./checkerboard.ppm";
 
-  Scene sc_1{};    // Erstelle Raytracer-inhalte (Scene) welche im Renderer verarbeitet werden, Uebergabe mittels shared-pointer 
+
+  Scene sc_1{};    // Erstelle Raytracer-inhalte (Scene) welche im Renderer verarbeitet werden, Uebergabe mittels shared-pointer
   Light li_1{"sun_1",{1.0f, 1.0f, 1.0f},{255,255,255},0.5f};
   auto ptr_li_1 = std::make_shared<Light>(li_1);
   // Illumination ill_1{};  // Grundbeleuchtung noch zu implement.
-  Camera cam_1{"cam_1",{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f},{0.0f, 0.0f, 1.0f}};
+
+  Camera cam_1{"cam_1",{0.0f, 0.0f, 0.0f},{0.0f, 0.0f, -1.0f}, 1, {0.0f, 0.0f, 1.0f}};
   auto ptr_cam_1 = std::make_shared<Camera>(cam_1);
-  Sphere sp_1{{0, 0, 0}, 5};
-  auto ptr_sph_1 = std::make_shared<Sphere>(sp_1); 
-  Box bo_1{{0,0,0}, {1,1,1}};
-  auto ptr_bo_1 = std::make_shared<Box>(bo_1); 
+
+  Sphere sp_1{{0, 0, -50}, 5};
+  auto ptr_sph_1 = std::make_shared<Sphere>(sp_1);
+
+  Box bo_1{{10,-5,-70}, {20,5,-40}};
+  auto ptr_bo_1 = std::make_shared<Box>(bo_1);
 
   sc_1.camera_ = ptr_cam_1;
-  sc_1.light_ = ptr_li_1;
-  sc_1.box_ = ptr_bo_1;
-  sc_1.sphere_ = ptr_sph_1 ;
-  
+  sc_1.shape_list.push_back(ptr_sph_1);
+  sc_1.shape_list.push_back(ptr_bo_1);
+
 
   Renderer renderer{image_width, image_height, filename};
 
   //create separate thread to see updates of pixels while rendering
   //std::thread render_thread([&renderer]() {renderer.render();});
-  renderer.render();
+  renderer.render(sc_1);
 
   Window window{{image_width, image_height}};
 
