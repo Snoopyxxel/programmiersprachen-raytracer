@@ -10,11 +10,9 @@ struct Camera{
     std::string name_;
     glm::vec3 pos_;
     glm::vec3 dir_;
-    float fov_x_;
     glm::vec3 up_;
+    float fov_x_;
 
-    Camera(const std::string &name, const glm::vec3 &pos, const glm::vec3 &dir, float fovX, const glm::vec3 &up)
-            : name_(name), pos_(pos), dir_(dir), fov_x_(fovX), up_(up) {}
 
     friend std::ostream& operator<<(std::ostream& os, Camera const& cam)
 	{

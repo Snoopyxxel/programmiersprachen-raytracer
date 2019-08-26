@@ -27,7 +27,6 @@ struct Scene {
     std::vector<std::shared_ptr<Shape>> shape_list;
     std::vector<std::shared_ptr<Light>> light_list_;
     std::map<std::string,std::shared_ptr<Material>> map_mat;
-    std::shared_ptr<Camera> camera_;
 };
 
 static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fkt., bekommt
@@ -189,7 +188,7 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                 glm::vec3 pos;
                 glm::vec3 dir;
                 glm::vec3 up;
-                unsigned int f_Of_V;
+                float f_Of_V;
 
                 current_line_string_stream >> pos.x;
                 current_line_string_stream >> pos.y;
@@ -205,7 +204,7 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
             
                 current_line_string_stream >> f_Of_V;
 
-                Camera cam(camera_name,pos,dir,up,f_Of_V);
+                Camera cam{camera_name,pos,dir,up,f_Of_V};
                 scene.camera_ = std::make_shared<Camera>(cam);
             }
             if("ambient" == identifier) {
