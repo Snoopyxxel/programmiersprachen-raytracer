@@ -12,43 +12,45 @@
 
 #include <iostream>
 
-struct Color
-{
+struct Color {
 
-  friend std::ostream& operator<<(std::ostream& os, Color const& c)
-  {
+  friend std::ostream& operator<<(std::ostream& os, Color const& c) {
     os << "(" << c.r << "," << c.g << "," << c.b << ")";
     return os;
   }
 
-  Color& operator+=(Color const& other)
-  {
+  Color& operator+=(Color const& other) {
     r += other.r;
     g += other.g;
     b += other.b;
     return *this;
   }
 
-  Color& operator-=(Color const& other)
-  {
+  Color& operator-=(Color const& other) {
     r -= other.r;
     g -= other.g;
     b -= other.b;
     return *this;
   }
 
-  friend Color operator+(Color const& a, Color const& b)
-  {
+  friend Color operator+(Color const& a, Color const& b) {
     auto tmp(a);
     tmp += b;
     return tmp;
   }
 
-  friend Color operator-(Color const& a, Color const& b)
-  {
+  friend Color operator-(Color const& a, Color const& b) {
     auto tmp(a);
     tmp -= b;
     return tmp;
+  }
+
+  friend Color operator*(float a, Color const& b) {
+      auto tmp(b);
+      tmp.r *= a;
+      tmp.g *= a;
+      tmp.b *= a;
+      return tmp;
   }
 
   float r;

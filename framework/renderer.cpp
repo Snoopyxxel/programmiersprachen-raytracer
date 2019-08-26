@@ -10,6 +10,7 @@
 #include "renderer.hpp"
 #include "ray.hpp"
 #include "scene.hpp"
+#include "illumination.hpp"
 
 Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   : width_(w)
@@ -19,10 +20,11 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
   , ppm_(width_, height_)
 {}
 
-void Renderer::render(Scene const& scene)
-{
+void Renderer::render(Scene const& scene) {
   std::size_t const checker_pattern_size = 20;
   float d = (width_ / 2.0f) / (tanf(scene.camera_->fov_x_ / 2.0f));
+
+  Color background_color{0.5f, 0.5f, 1.0f};
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
@@ -31,10 +33,18 @@ void Renderer::render(Scene const& scene)
       ray.direction = glm::normalize(ray.direction);
 
 
-      p.color = Color{1.0f, 1.0f, 1.0f};
+      p.color = background_color;
+      HitPoint closest_i{false, std::numeric_limits<float>::infinity()};
       for (auto const& obj : scene.shape_list){
-          if (obj->intersect(ray).intersected){
-              p.color = Color{0.0f, 0.0f, 0.0f};
+          HitPoint intersection = obj->intersect(ray);
+          if (intersection.intersected and intersection.distance < closest_i.distance){
+              closest_i = intersection;
+              auto closest_o = obj;
+              if (closest_i.intersected){
+                  p.color = phong(ray, intersection, obj, scene);
+              } else{
+                  p.color = background_color;
+              }
           }
       }
       /*

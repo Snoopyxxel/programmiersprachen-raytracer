@@ -6,6 +6,14 @@ bool check_obstruction(glm::vec3 const &p1, glm::vec3 const &p2) {
     return false;
 }
 
+
+Color phong(Ray const &ray, HitPoint const &intersection, std::shared_ptr<Shape> const &inters_o, Scene const& scene) {
+    Color ambient = scene.ambient_light_ * intersection.material->ka;
+
+
+    return ambient;
+}
+
 /*float phong(glm::vec3 const &in) {
     std::vector<std::pair<std::shared_ptr<Light>,float>> eval_lights;
     for (auto const& light : light_list_){

@@ -20,17 +20,22 @@ int main(int argc, char* argv[])
 
 
   Scene sc_1{};    // Erstelle Raytracer-inhalte (Scene) welche im Renderer verarbeitet werden, Uebergabe mittels shared-pointer
-  Light li_1{"sun_1",{1.0f, 1.0f, 1.0f},{255,255,255},0.5f};
+  sc_1.ambient_light_ = 0.5f;
+  Light li_1{"sun_1",{1.0f, 1.0f, 1.0f},{255,255,255},1.0f};
   auto ptr_li_1 = std::make_shared<Light>(li_1);
   // Illumination ill_1{};  // Grundbeleuchtung noch zu implement.
 
   Camera cam_1{"cam_1",{0.0f, 0.0f, 0.0f},{0.0f, 0.0f, -1.0f}, {0.0f, 0.0f, 1.0f}, 1};
   auto ptr_cam_1 = std::make_shared<Camera>(cam_1);
 
-  Sphere sp_1{{0, 0, -50}, 5};
+  auto mix_green = std::make_shared<Material>(Material{"mix_green", {0.2f, 0.7f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 5});
+  auto mix_blue = std::make_shared<Material>(Material{"mix_blue", {0.2f, 0.2f, 0.7f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, 5});
+
+
+    Sphere sp_1{"sp_1", mix_green, {0, 0, -50}, 5};
   auto ptr_sph_1 = std::make_shared<Sphere>(sp_1);
 
-  Box bo_1{{10,-5,-70}, {20,5,-40}};
+  Box bo_1{"bo_1", mix_blue, {10,-5,-70}, {20,5,-40}};
   auto ptr_bo_1 = std::make_shared<Box>(bo_1);
 
   sc_1.camera_ = ptr_cam_1;
