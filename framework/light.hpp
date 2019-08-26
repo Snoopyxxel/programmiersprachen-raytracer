@@ -10,10 +10,7 @@ struct Light{
     std::string name_;
     Color col_;
     glm::vec3 pos_;
-    double luminosity_;
-
-    Light(std::string name, glm::vec3 lightpos, Color col, double luminosity):
-    name_(name), pos_(lightpos), col_(col), luminosity_(luminosity){}
+    float luminosity_;
 
     friend std::ostream& operator<<(std::ostream& os, Light const& li){
         os << " name: " << li.name_

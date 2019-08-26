@@ -7,7 +7,7 @@
 #include "Shape.hpp"
 #include "scene.hpp"
 
-bool check_obstruction(glm::vec3 const& p1, glm::vec3 const& p2);
+bool obstructed(glm::vec3 const& p1, glm::vec3 const& p2, Scene const& scene);
 Color phong(Ray const& ray, HitPoint const& intersection, std::shared_ptr<Shape> const& inters_o, Scene const& scene);
 
 

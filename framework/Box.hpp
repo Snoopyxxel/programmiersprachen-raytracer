@@ -19,6 +19,8 @@ public:
 
     HitPoint intersect(Ray &r) const override;
 
+    glm::vec3 normal(glm::vec3 const& p) const override;
+
 private:
     glm::vec3 min_;
     glm::vec3 max_;

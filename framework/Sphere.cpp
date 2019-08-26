@@ -41,3 +41,8 @@ HitPoint Sphere::intersect(Ray &ray) const {
 std::ostream &operator<<(std::ostream &os, const Sphere &sphere) {
     return sphere.print(os);
 }
+
+glm::vec3 Sphere::normal(glm::vec3 const &p) const {
+    return glm::normalize(p - center_);
+}
+

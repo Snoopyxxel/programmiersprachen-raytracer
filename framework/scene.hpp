@@ -163,7 +163,7 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                     
                 Color col_;
                 glm::vec3 pos_;
-                double luminosity_;
+                float luminosity_;
 
                 current_line_string_stream >> pos_.x;
                 current_line_string_stream >> pos_.y;
@@ -175,7 +175,7 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
 
                 current_line_string_stream >> luminosity_;
 
-                Light light{light_name, pos_, col_, luminosity_};
+                Light light{light_name,col_, pos_, luminosity_};
                 scene.light_list_.push_back(std::make_shared<Light>(light));
                 
             }

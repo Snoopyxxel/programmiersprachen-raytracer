@@ -24,6 +24,8 @@ public:
 
     HitPoint intersect(Ray &ray) const override;
 
+    glm::vec3 normal(glm::vec3 const &p) const override;
+
 private:
     glm::vec3 center_;
     float radius_;

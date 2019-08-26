@@ -22,16 +22,15 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
 
 void Renderer::render(Scene const& scene) {
   std::size_t const checker_pattern_size = 20;
-  float d = (width_ / 2.0f) / (tanf(scene.camera_->fov_x_ / 2.0f));
+  float d = (float(width_) / 2.0f) / (tanf(scene.camera_->fov_x_ / 2.0f));
 
   Color background_color{0.5f, 0.5f, 1.0f};
 
   for (unsigned y = 0; y < height_; ++y) {
     for (unsigned x = 0; x < width_; ++x) {
       Pixel p(x,y);
-      Ray ray{scene.camera_->pos_, {x-(width_ / 2.0f), y - (height_ / 2.0f), -d}};
+      Ray ray{scene.camera_->pos_, {x-(float(width_) / 2.0f), y - (float(height_) / 2.0f), -d}};
       ray.direction = glm::normalize(ray.direction);
-
 
       p.color = background_color;
       HitPoint closest_i{false, std::numeric_limits<float>::infinity()};
