@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
   Scene sc_1{};    // Erstelle Raytracer-inhalte (Scene) welche im Renderer verarbeitet werden, Uebergabe mittels shared-pointer
   sc_1.ambient_light_ = 0.45f;
-  Light li_1{"sun_1",{1.0f, 1.0f, 1.0f},{0.0f,0.0f,-20.0f}, 1.0f};
+  Light li_1{"sun_1",{1.0f, 1.0f, 1.0f},{-10.0f,3.0f,-35.0f}, 0.7f};
   auto ptr_li_1 = std::make_shared<Light>(li_1);
   sc_1.light_list_.push_back(ptr_li_1);
   // Illumination ill_1{};  // Grundbeleuchtung noch zu implement.
@@ -29,13 +29,13 @@ int main(int argc, char* argv[])
   Camera cam_1{"cam_1",{0.0f, 0.0f, 0.0f},{0.0f, 0.0f, -1.0f}, {0.0f, 0.0f, 1.0f}, 1.0f};
   auto ptr_cam_1 = std::make_shared<Camera>(cam_1);
 
-  auto mix_green = std::make_shared<Material>(Material{"mix_green", {0.1f, 0.7f, 0.1f}, {0.1f, 0.7f, 0.1f}, {0.0f, 1.0f, 0.0f}, 5.0f});
-  auto mix_blue = std::make_shared<Material>(Material{"mix_blue", {0.1f, 0.1f, 0.7f}, {0.1f, 0.1f, 0.7f}, {0.0f, 1.0f, 0.0f}, 5.0f});
+  auto mix_green = std::make_shared<Material>(Material{"mix_green", {0.1f, 0.7f, 0.1f}, {0.1f, 0.7f, 0.1f}, {0.1f, 0.7f, 0.1f}, 5.0f});
+  auto mix_blue = std::make_shared<Material>(Material{"mix_blue", {0.1f, 0.1f, 0.7f}, {0.1f, 0.1f, 0.7f}, {0.1f, 0.1f, 0.7f}, 5.0f});
 
-  Sphere sp_1{"sp_1", mix_green, {5.0f, 0.0f, -45.0f}, 2.0f};
+  Sphere sp_1{"sp_1", mix_green, {5.0f, 0.0f, -35.0f}, 2.0f};
   auto ptr_sph_1 = std::make_shared<Sphere>(sp_1);
 
-  Box bo_1{"bo_1", mix_blue, {10.0f,-10.0f,-110.0f}, {20.0f,10.0f,-80.0f}};
+  Box bo_1{"bo_1", mix_blue, {10.0f,-10.0f,-70.0f}, {20.0f,10.0f,-30.0f}};
   auto ptr_bo_1 = std::make_shared<Box>(bo_1);
 
   sc_1.camera_ = ptr_cam_1;
