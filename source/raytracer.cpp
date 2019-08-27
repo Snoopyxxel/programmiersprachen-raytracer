@@ -11,6 +11,7 @@
 #include "camera.hpp"
 #include "light.hpp"
 
+
 //now single threaded again
 int main(int argc, char* argv[])
 {
@@ -18,7 +19,7 @@ int main(int argc, char* argv[])
   unsigned const image_height = 600;
   std::string const filename = "./checkerboard.ppm";
 
-
+/*
   Scene sc_1{};    // Erstelle Raytracer-inhalte (Scene) welche im Renderer verarbeitet werden, Uebergabe mittels shared-pointer
   sc_1.ambient_light_ = 0.5f;
   Light li_1{"sun_1",{1.0f, 1.0f, 1.0f},{-30.0f,0.0f,-50.0f}, 0.9f};
@@ -41,13 +42,18 @@ int main(int argc, char* argv[])
   sc_1.camera_ = ptr_cam_1;
   sc_1.shape_list.push_back(ptr_sph_1);
   sc_1.shape_list.push_back(ptr_bo_1);
-
+*/
+  Scene sc_sdf{}; 
+  get_SDF_File("/scene/scene_1.sdf", sc_sdf); 
 
   Renderer renderer{image_width, image_height, filename};
-
+  Renderer renderer_sdf{image_width, image_height, filename};
+  
   //create separate thread to see updates of pixels while rendering
   //std::thread render_thread([&renderer]() {renderer.render();});
-  renderer.render(sc_1);
+
+  //renderer.render(sc_1);   // direct- without scene-testing
+  renderer_sdf.render(sc_sdf);
 
   Window window{{image_width, image_height}};
 
@@ -55,7 +61,8 @@ int main(int argc, char* argv[])
     if (window.get_key(GLFW_KEY_ESCAPE) == GLFW_PRESS) {
       window.close();
     }
-    window.show(renderer.color_buffer());
+    //window.show(renderer.color_buffer());   // direct- without scene-testing
+    window.show(renderer_sdf.color_buffer());
   }
 
   //"join" threads, i.e. synchronize main thread with render_thread

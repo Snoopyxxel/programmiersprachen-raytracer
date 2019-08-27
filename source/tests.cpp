@@ -153,8 +153,8 @@ TEST_CASE("TestCase_test   camera.hpp and light.hpp as  structs ok  ","[7xx]") {
     std::cout << "Hello sun \n"; 
     glm::vec3 test_vec_sun{1.0f, 1.0f, 1.0f};
     Color co_sun{255,255,255};
-    Light li_1{"sun_1",test_vec_sun,co_sun,0.5f};
-    std::cout << li_1;
+    //Light li_1{"sun_1",test_vec_sun,co_sun,0.5f};
+    //std::cout << li_1;
 
 }
 

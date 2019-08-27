@@ -1,0 +1,16 @@
+
+#        	 <name>       [Ka] 	   [Kd]	 	 [Ks]	    <m>
+define material  mix_green  0.0 0.5 0.0  0.0 0.7 0.0   0.0 1.0 0.0   0.5
+define material  mix_blue   0.0 0.0 0.5  0.0 0.0 0.7   0.0 1.0 0.0   0.5
+#                <name> 	    [p1] 	     [p2] 	<mat-name>
+define shape box  b_1  10.0 -5.0 -70.0   20.0 5.0 -30.0  mix_blue 
+#                  <name>   [center]   <radius>   <mat-name>
+define shape sphere  s_1   0.0 0.0 -50.0  5.0  mix_green
+#            <name>   [pos]       [color]   [brightness]
+define light  sun  -30 0.0 -50  1.0 1.0 1.0  0.9  
+# Achtung Pos und Color bei Light verdreht in scene-reader und Light-klasse
+#             <name>     <pos>       <dir>          <up>     <fov-x>
+define camera  cam_1  0.0 0.0 0.0  0.0 0.0 -1.0  0.0 0.0 1.0  1.0f
+               ambient_light_(value)
+define ambient 0.5
+# define render

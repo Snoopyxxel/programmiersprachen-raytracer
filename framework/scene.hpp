@@ -31,23 +31,23 @@ struct Scene {
 
 static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fkt., bekommt
     std::ifstream in_file(path);            // als parameter den dateipfad und oeffnet diesen
-    std::cout << "before while loop in the get_SDF_File method     " << path << std::endl;
+    //std::cout << "before while loop in the get_SDF_File method     " << path << std::endl;
     std::string line_buffer;
 
     while(std::getline(in_file, line_buffer)) {
         std::istringstream current_line_string_stream(line_buffer);
         std::string identifier;
         current_line_string_stream >> identifier;
-        std::cout << "this is in the while-loop of get_SDF_File-method  \n";
+        //std::cout << "this is in the while-loop of get_SDF_File-method  \n";
         //file.open(path);
 
         if( "define" == identifier ) {
-            std::cout << "this is if- define  \n";
+            //std::cout << "this is if- define  \n";
             current_line_string_stream >> identifier;
             
 
             if("material" == identifier) {
-                std::cout <<"this is if- material  \n";
+                //std::cout <<"this is if- material  \n";
 
                 std::string col_as_name;
                 current_line_string_stream >> col_as_name;
@@ -71,34 +71,18 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
 
                 current_line_string_stream >> f1;
 
-                std::cout << col_as_name << ", ";
-
-                std::cout << ka_red << " ";
-                std::cout << ka_green << " ";
-                std::cout << ka_blue << ", ";
-
-                std::cout << kd_red << " ";
-                std::cout << kd_green << " ";
-                std::cout << kd_blue << ", ";
-
-                std::cout << ks_red << " ";
-                std::cout << ks_green << " ";
-                std::cout << ks_blue << ", ";
-
-                std::cout << "\n\n f1 ist : " << f1 << std::endl;
-
                 Material current_loop_mat{col_as_name,{ka_red,ka_green,ka_blue},{kd_red,kd_green,kd_blue},{ks_red,ks_green,ks_blue},f1};
                 auto m1 = std::make_shared<Material>(current_loop_mat);
-                std::cout << current_loop_mat << std::endl;
+                //std::cout << current_loop_mat << std::endl;
                 scene.map_mat.emplace(col_as_name,m1);
 
             }
             if("shape" == identifier) {
-                std::cout << "this is if- shape   \n";
+                //std::cout << "this is if- shape   \n";
                 current_line_string_stream >> identifier;                
 
                 if("box" == identifier){
-                    std::cout << "   this is if- box   \n";
+                    //std::cout << "   this is if- box   \n";
 
                     std::string box_name;
                     current_line_string_stream >> box_name;
@@ -127,10 +111,10 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                     scene.shape_list.push_back(std::make_shared<Box>(box));
                     
                 }else if("sphere" == identifier){
-                    std::cout << "   this is else if- sphere   \n";
+                    //std::cout << "   this is else if- sphere   \n";
                     
                     std::string sphere_name;
-                    current_line_string_stream >> identifier;
+                    current_line_string_stream >> sphere_name;
 
                     glm::vec3 cen;
                     float rad;
@@ -156,7 +140,7 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                 }
             }
             if("light" == identifier) {
-                std::cout << "this is if light \n";
+                //std::cout << "this is if light \n";
                 
                 std::string light_name;
                 current_line_string_stream >> light_name;
@@ -180,7 +164,7 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                 
             }
             if("camera" == identifier) {
-                std::cout << "this is if camera  \n";
+                //std::cout << "this is if camera  \n";
 
                 std::string camera_name;
                 current_line_string_stream >> camera_name;
@@ -206,19 +190,39 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
 
                 Camera cam{camera_name,pos,dir,up,f_Of_V};
                 scene.camera_ = std::make_shared<Camera>(cam);
+                
             }
             if("ambient" == identifier) {
-                std::cout << "this is if ambient  \n";
+                //std::cout << "this is if ambient  \n";
             
                 current_line_string_stream >> scene.ambient_light_;
+                
             }
         } 
         if("render" == identifier) {
                 current_line_string_stream >> identifier;
-                std::cout << "this is if - render  \n";
+                //std::cout << "this is if - render  \n";
         }        
     }
     in_file.close();
+
+    std::cout << "\nFollowing Contents from sdf are saved in this scene : \n";
+
+    std::cout << "map_mat : \n";
+    for (auto it_map = scene.map_mat.begin(); it_map != scene.map_mat.end(); ++it_map){   
+    std::cout << it_map->first << " => " << *(it_map->second) << '\n';  // erst zugriff auf second, dann erst dereferenzieren !
+    }
+    std::cout << "shape_list vector : \n";
+    for (auto it_vec_1 = scene.shape_list.begin() ; it_vec_1 != scene.shape_list.end(); ++it_vec_1){
+    std::cout << **it_vec_1 << "\n";  // doppelt dereferenzieren, weil iterator und smartptr
+    }
+    std::cout << "light_list vector : \n";
+    for (auto it_vec_2 = scene.light_list_.begin() ; it_vec_2 != scene.light_list_.end(); ++it_vec_2)
+    std::cout << **it_vec_2 << "\n";  // doppelt dereferenzieren, weil iterator und smartptr
+ 
+    std::cout << "ambient_light_ :\n " << scene.ambient_light_ << "\n";
+
+    std::cout << "camera_ : \n" << *scene.camera_ << "\n";
 }
 
 static std::shared_ptr<Material> search_map(std::string name, Scene& scene){
