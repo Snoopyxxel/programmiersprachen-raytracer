@@ -17,16 +17,17 @@ bool obstructed(glm::vec3 const& p1, glm::vec3 const& p2, Scene const& scene) {
 
 Color phong(Ray const &ray, HitPoint const &intersection, std::shared_ptr<Shape> const& inters_o, Scene const& scene) {
 
-    Color ambient = scene.ambient_light_ * intersection.material->ka;
-    Color result = ambient;
-
+    Color result = scene.ambient_light_ * intersection.material->ka;
 
     for (auto const& light : scene.light_list_){
-        if(!obstructed(light->pos_, intersection.intersection_point, scene)){
+        if(!obstructed(intersection.intersection_point, light->pos_, scene)){
             auto to_light = glm::normalize(light->pos_ - intersection.intersection_point);
             auto normal = inters_o->normal(intersection.intersection_point);
-            Color diffuse = light->luminosity_ * glm::dot(to_light, normal) * intersection.material->kd;
-            result += diffuse;
+            auto angle = glm::dot(to_light, normal);
+            if (angle > 0.005f) {
+                Color diffuse = light->luminosity_ * angle * intersection.material->kd;
+                result += diffuse;
+            }
         }
     }
 

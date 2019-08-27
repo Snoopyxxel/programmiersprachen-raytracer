@@ -67,8 +67,18 @@ HitPoint Box::intersect(Ray &r) const {
     if (tzmin > tmin)
         tmin = tzmin;
 
-    //if (tzmax < tmax)
-    //    tmax = tzmax;
+
+    /*
+    if (tzmax < tmax)
+        tmax = tzmax;
+
+    if (tmax < tmin) std::swap(tmax, tmin);
+
+
+    if (tmin < 0.00005){
+        return HitPoint{false, std::numeric_limits<float>::infinity()};
+    }
+     */
 
     return HitPoint{true, tmin, name_, material_, r1.origin + tmin * r1.direction, r1.direction};
 
@@ -116,27 +126,25 @@ HitPoint Box::intersect(Ray &r) const {
 
 glm::vec3 Box::normal(glm::vec3 const& p) const {
 
-    if (p.y == min_.y){
-        return {0.0f, 0.0f, -1.0f};
+    if (fabsf(p.y - min_.y) < 0.0005f){
+        return {0.0f, -1.0f, 0.0f};
     }
-    if (p.y == max_.y){
-        return {0.0f, 0.0f, 1.0f};
+    if (fabsf(p.y - max_.y) < 0.0005f){
+        return {0.0f, 1.0f, 0.0f};
     }
 
-
-    if (p.x == min_.x){
+    if (fabsf(p.x - min_.x) < 0.0005f){
         return {-1.0f, 0.0f, 0.0f};
     }
-    if (p.x == max_.x){
+    if (fabsf(p.x - max_.x) < 0.0005f){
         return {1.0f, 0.0f, 0.0f};
     }
 
-
-    if (p.z == min_.z){
-        return {0.0f, -1.0f, 0.0f};
+    if (fabsf(p.z - min_.z) < 0.0005f){
+        return {0.0f, 0.0f, -1.0f};
     }
-    if (p.z == max_.z){
-        return {0.0f, 1.0f, 0.0f};
+    if (fabsf(p.z - max_.z) < 0.0005f){
+        return {0.0f, 0.0f, 1.0f};
     }
 
 }
