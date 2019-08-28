@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
   sc_1.shape_list.push_back(ptr_sph_1);
   sc_1.shape_list.push_back(ptr_bo_1);
 */
+
   Scene sc_sdf{}; 
   get_SDF_File("/scene/scene_1.sdf", sc_sdf);
 

@@ -27,6 +27,13 @@ public:
 
     virtual glm::vec3 normal(glm::vec3 const& p) const = 0;   //point has to be on the object!
 
+    virtual void scale(float x, float y, float z) const = 0;
+
+    virtual void translate(float x, float y, float z) const = 0;
+
+    virtual void rotate(float angle, float x, float y, float z) const = 0;
+
+
 protected:
     std::string name_;
     std::shared_ptr<Material> material_;
