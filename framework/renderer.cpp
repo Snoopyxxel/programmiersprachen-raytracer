@@ -21,10 +21,7 @@ Renderer::Renderer(unsigned w, unsigned h, std::string const& file)
 {}
 
 void Renderer::render(Scene const& scene) {
-  std::size_t const checker_pattern_size = 20;
   float d = (float(width_) / 2.0f) / (tanf(scene.camera_->fov_x_ / 2.0f));
-
-  Color background_color{0.5f, 0.5f, 1.0f};
 
   for (int y = 0; y < height_; ++y) {
     for (int x = 0; x < width_; ++x) {
@@ -32,32 +29,8 @@ void Renderer::render(Scene const& scene) {
       Ray ray{scene.camera_->pos_, {x-(float(width_) / 2.0f), y - (float(height_) / 2.0f), -d}};
       ray.direction = glm::normalize(ray.direction);
 
+      p.color = trace(ray, scene);
 
-
-
-
-
-      p.color = background_color;
-      HitPoint closest_i{false, std::numeric_limits<float>::infinity()};
-      for (auto const& obj : scene.shape_list){
-          HitPoint intersection = obj->intersect(ray);
-          if (intersection.intersected and intersection.distance < closest_i.distance){
-              closest_i = intersection;
-              auto closest_o = obj;
-              if (closest_i.intersected){
-                  p.color = phong(ray, intersection, obj, scene);
-              } else{
-                  p.color = background_color;
-              }
-          }
-      }
-      /*
-      if ( ((x/checker_pattern_size)%2) != ((y/checker_pattern_size)%2)) {
-        p.color = Color{0.0f, 1.0f, float(x)/height_};
-      } else {
-        p.color = Color{1.0f, 0.0f, float(y)/width_};
-      }
-      */
       write(p);
     }
   }

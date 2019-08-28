@@ -95,8 +95,8 @@ TEST_CASE("intersect sphere"){
     REQUIRE(result.material->ka.r == red_c.r);
     REQUIRE(result.name == "test_sphere");
     REQUIRE(result.distance == 4.0f);
-    REQUIRE(result.intersection_point == glm::vec3(0.0f, 0.0f, 4.0f));
-    REQUIRE(result.intersection_ray_direction == glm::vec3(0.0f, 0.0f, 1.0f));
+    REQUIRE(result.point_ == glm::vec3(0.0f, 0.0f, 4.0f));
+    REQUIRE(result.ray_direction_ == glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 TEST_CASE("intersect box"){
@@ -112,7 +112,7 @@ TEST_CASE("intersect box"){
     REQUIRE(glm::intersectRayPlane(glm::vec3{0, 0, 0}, glm::vec3{0, 0, -1}, glm::vec3{0, 0, 1}, glm::vec3{0, 0, 1}, test_intersect));
     std::cout << test_intersect;
     REQUIRE(result1.intersected);
-    REQUIRE(result1.intersection_point == glm::vec3(0.5f, 0.5f, 0.0f));
+    REQUIRE(result1.point_ == glm::vec3(0.5f, 0.5f, 0.0f));
 }
 
 TEST_CASE("TestCase_7   sdf_files  aufg 6.5 ","[aufgabe 6.5]") {

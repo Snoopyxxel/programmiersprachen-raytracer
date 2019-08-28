@@ -20,7 +20,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
 
-    virtual HitPoint intersect(Ray &ray) const = 0;
+    virtual HitPoint intersect(Ray const& ray) const = 0;
 
     virtual std::ostream& print(std::ostream &os = std::cout) const;
 

@@ -24,9 +24,8 @@ std::ostream& Sphere::print(std::ostream &os) const {
     return os;
 }
 
-HitPoint Sphere::intersect(Ray &ray) const {
+HitPoint Sphere::intersect(Ray const& ray) const {
     float distance = 0.0f;
-    ray.direction = glm::normalize(ray.direction);
     auto result = glm::intersectRaySphere(ray.origin, ray.direction, center_, radius_ * radius_, distance);
     std::string name = "";
     Color color = {-1, -1, -1};

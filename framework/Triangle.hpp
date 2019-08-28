@@ -15,7 +15,7 @@ public:
 
     /* virtual */ float area() const override ;
     /* virtual */ float volume () const override ;  // Dreieck ist Fläche --wie soll das gehen ???
-    /* virtual */ HitPoint intersect(Ray & ray) const override;
+    /* virtual */ HitPoint intersect(Ray const& ray) const override;
     /* virtual */ std::ostream& print(std::ostream& os) const override;
 
     Triangle(const glm::vec3 &e1, const glm::vec3 &e2, const glm::vec3 &e3);

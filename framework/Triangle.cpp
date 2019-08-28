@@ -37,7 +37,7 @@ float Triangle::volume() const {  // Formel checken !!!
     return 0.0f;
 }
 
-HitPoint Triangle::intersect(Ray & ray) const{
+HitPoint Triangle::intersect(Ray const& ray) const{
     HitPoint h1;
     return h1;
 }
