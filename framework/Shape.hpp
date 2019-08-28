@@ -8,6 +8,7 @@
 #include "ray.hpp"
 #include "hitpoint.hpp"
 #include <glm/vec3.hpp>
+#include <glm/glm.hpp>
 #include <memory>
 
 class Shape {
@@ -29,6 +30,8 @@ public:
 protected:
     std::string name_;
     std::shared_ptr<Material> material_;
+    glm::mat4 world_transformation_;
+    glm::mat4 world_transformation_inv_;
 };
 
 

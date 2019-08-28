@@ -2,8 +2,21 @@
 #include "Shape.hpp"
 #include <memory>
 
-Shape::Shape() : name_(""), material_(std::make_shared<Material>("default_material", Color{1,1,1}, Color{1,1,1}, Color{1,1,1}, 1)) {}
-Shape::Shape(const std::string &name, const std::shared_ptr<Material> &material) : name_(name), material_(material) {}
+Shape::Shape() : name_("shape-default"),
+                 material_(std::make_shared<Material>("default_material", Color{1,1,1}, Color{1,1,1}, Color{1,1,1}, 1)){
+                 world_transformation_= glm::mat4x4{glm::vec4{1.0f,0.0f,0.0f,0.0f},  // default - Einheitsmatrix
+                                                    glm::vec4{0.0f,1.0f,0.0f,0.0f},
+                                                    glm::vec4{0.0f,0.0f,1.0f,0.0f},
+                                                    glm::vec4{0.0f,0.0f,0.0f,1.0f}};
+                 world_transformation_inv_ = glm::inverse(world_transformation_);}
+
+Shape::Shape(const std::string &name, const std::shared_ptr<Material> &material) : name_(name), material_(material){
+                 world_transformation_= glm::mat4x4{glm::vec4{1.0f,0.0f,0.0f,0.0f},  // default - Einheitsmatrix
+                                                    glm::vec4{0.0f,1.0f,0.0f,0.0f},
+                                                    glm::vec4{0.0f,0.0f,1.0f,0.0f},
+                                                    glm::vec4{0.0f,0.0f,0.0f,1.0f}};
+                 world_transformation_inv_ = glm::inverse(world_transformation_);} 
+                 
 
 std::ostream& operator<<(std::ostream &os, const Shape &shape) {
     return shape.print(os);
