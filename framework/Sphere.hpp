@@ -26,6 +26,12 @@ public:
 
     glm::vec3 normal(glm::vec3 const &p) const override;
 
+    void scale(float x, float y, float z) const override;
+
+    void translate(float x, float y, float z) const override;
+
+    void rotate(float angle, float x, float y, float z) const override;
+
 private:
     glm::vec3 center_;
     float radius_;

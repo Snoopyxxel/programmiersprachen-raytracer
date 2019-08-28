@@ -146,3 +146,15 @@ glm::vec3 Box::normal(glm::vec3 const& p) const {
     }
 
 }
+
+void Box::scale(float x, float y, float z) const {
+
+}
+
+void Box::translate(float x, float y, float z) const {
+
+}
+
+void Box::rotate(float angle, float x, float y, float z) const {
+
+}
