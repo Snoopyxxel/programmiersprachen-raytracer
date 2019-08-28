@@ -26,11 +26,16 @@ void Renderer::render(Scene const& scene) {
 
   Color background_color{0.5f, 0.5f, 1.0f};
 
-  for (unsigned y = 0; y < height_; ++y) {
-    for (unsigned x = 0; x < width_; ++x) {
+  for (int y = 0; y < height_; ++y) {
+    for (int x = 0; x < width_; ++x) {
       Pixel p(x,y);
       Ray ray{scene.camera_->pos_, {x-(float(width_) / 2.0f), y - (float(height_) / 2.0f), -d}};
       ray.direction = glm::normalize(ray.direction);
+
+
+
+
+
 
       p.color = background_color;
       HitPoint closest_i{false, std::numeric_limits<float>::infinity()};
