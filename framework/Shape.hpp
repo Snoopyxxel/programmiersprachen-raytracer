@@ -27,7 +27,11 @@ public:
 
     virtual glm::vec3 normal(glm::vec3 const& p) const = 0;   //point has to be on the object!
 
-protected:
+    std::string get_name();
+    
+
+public:
+    
     std::string name_;
     std::shared_ptr<Material> material_;
     glm::mat4 world_transformation_;

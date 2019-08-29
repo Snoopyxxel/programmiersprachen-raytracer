@@ -15,6 +15,8 @@
 #include "Triangle.hpp"
 #include "camera.hpp"
 #include "light.hpp"
+#include <glm/vec3.hpp>
+#include <glm/glm.hpp>
 
 #include <fstream>
 #include <sstream>
@@ -27,6 +29,10 @@ struct Scene {
     std::vector<std::shared_ptr<Shape>> shape_list;
     std::vector<std::shared_ptr<Light>> light_list_;
     std::map<std::string,std::shared_ptr<Material>> map_mat;
+    std::vector<std::shared_ptr<glm::vec3>> scale_list_;
+    std::vector<std::shared_ptr<glm::vec3>> translate_list_;
+    std::vector<std::shared_ptr<glm::mat4>> rotate_list_;
+
 };
 
 static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fkt., bekommt
@@ -196,12 +202,49 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
                 //std::cout << "this is if ambient  \n";
             
                 current_line_string_stream >> scene.ambient_light_;
-                
+              
             }
+        }                  
+        if("transform" == identifier) {
+            std::cout << "this is if transform  \n";
+
+            std::string shape_to_manipul;
+            current_line_string_stream >> shape_to_manipul;
+
+            auto it_trans = scene.shape_list.begin();
+
+            for (it_trans ; it_trans != scene.shape_list.end(); ++it_trans){
+                if((**it_trans).get_name() == shape_to_manipul){
+                    std::cout << "My name is : " << (**it_trans).get_name() << "\n";
+                 }
+            }
+            
+            current_line_string_stream >> identifier;
+
+            if("scale" == identifier){
+              std::cout << "this is if  scale  \n";
+
+                float x;
+                float y;
+                float z;
+
+                current_line_string_stream >> x;
+                current_line_string_stream >> y;
+                current_line_string_stream >> z;
+            
+				//(**it_trans).scale(x,y,z);
+
+                std::cout<< "after scaling << " << (**it_trans).get_name() << " \n";
+
+            }
+
+            
+
         } 
+
         if("render" == identifier) {
                 current_line_string_stream >> identifier;
-                //std::cout << "this is if - render  \n";
+                std::cout << "this is if  render  \n";
         }        
     }
     in_file.close();

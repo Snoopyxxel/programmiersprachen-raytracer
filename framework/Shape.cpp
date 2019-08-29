@@ -26,3 +26,7 @@ std::ostream& Shape::print(std::ostream &os) const {
     os << "Name: " << name_ << " | Material: " << *material_;
     return os;
 }
+
+std::string Shape::get_name(){
+        return name_;
+    };
