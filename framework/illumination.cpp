@@ -7,7 +7,7 @@ bool obstructed(glm::vec3 const& p1, glm::vec3 const& p2, Scene const& scene) {
 
     for (auto const& obj : scene.shape_list){
         HitPoint intersection = obj->intersect(ray);
-        if (intersection.distance - 0.0005f > 0.0f && intersection.distance + 0.0005f < glm::distance(p1, p2)){
+        if (intersection.intersected && intersection.distance - 0.0005f > 0.0f && intersection.distance + 0.0005f < glm::distance(p1, p2)){
             return true;
         }
     }
@@ -20,18 +20,18 @@ Color phong(Ray const &ray, HitPoint const &intersection, std::shared_ptr<Shape>
     Color result = scene.ambient_light_ * intersection.material->ka;
 
     for (auto const& light : scene.light_list_){
-        if(!obstructed(intersection.intersection_point, light->pos_, scene)){
-            auto to_light = glm::normalize(light->pos_ - intersection.intersection_point);
-            auto normal = inters_o->normal(intersection.intersection_point);
+        if(!obstructed(light->pos_, intersection.point_, scene)){
+            auto to_light = glm::normalize(light->pos_ - intersection.point_);
+            auto normal = inters_o->normal(intersection.point_);
             auto angle = glm::dot(to_light, normal);
             if (angle > 0.0f) {
-                Color diffuse = light->luminosity_ * angle * intersection.material->kd;
+                Color diffuse = light->luminosity_ * light->col_ * angle * intersection.material->kd;
                 result += diffuse;
             }
 
-            glm::vec3 from_light = glm::normalize(intersection.intersection_point - light->pos_);
+            glm::vec3 from_light = glm::normalize(intersection.point_ - light->pos_);
             glm::vec3 r = glm::normalize(from_light - (2 * glm::dot(from_light, normal) * normal));
-            Color specular = powf(glm::dot(r, glm::normalize(-intersection.intersection_ray_direction)), intersection.material->m) * light->luminosity_ * intersection.material->ks;
+            Color specular = powf(glm::dot(r, glm::normalize(-intersection.ray_direction_)), intersection.material->m) * light->luminosity_ * light->col_ * intersection.material->ks;
             if (specular > 0.0f){
                 result += specular;
             }
@@ -42,15 +42,31 @@ Color phong(Ray const &ray, HitPoint const &intersection, std::shared_ptr<Shape>
     return result;
 }
 
-/*float phong(glm::vec3 const &in) {
-    std::vector<std::pair<std::shared_ptr<Light>,float>> eval_lights;
-    for (auto const& light : light_list_){
-        if (!obstructed(in, light->pos_)){
-            eval_lights.push_back({light, glm::distance(in, light->pos_)});,
 
+Color trace(Ray const& ray, Scene const& scene) {
+
+    Color background_color{0.5f, 0.5f, 1.0f};
+
+    HitPoint closest_i{false, std::numeric_limits<float>::infinity()};
+    std::shared_ptr<Shape> closest_o;
+    for (auto const& obj : scene.shape_list) {
+        HitPoint intersection = obj->intersect(ray);
+        if (intersection.intersected and intersection.distance < closest_i.distance) {
+            closest_i = intersection;
+            closest_o = obj;
         }
     }
-}*/
+
+    if (closest_i.intersected){
+        return phong(ray, closest_i, closest_o, scene);
+    } else{
+        return background_color;
+    }
+}
+
+
+
+
 
 /*
 for all light sources in scene:

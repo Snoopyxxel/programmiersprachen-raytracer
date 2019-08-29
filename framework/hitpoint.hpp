@@ -11,8 +11,8 @@ struct HitPoint {
     float distance;
     std::string name;
     std::shared_ptr<Material> material;
-    glm::vec3 intersection_point;
-    glm::vec3 intersection_ray_direction;
+    glm::vec3 point_;
+    glm::vec3 ray_direction_;
 };
 
 #endif

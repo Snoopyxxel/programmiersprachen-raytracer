@@ -51,9 +51,23 @@ struct Color {
       tmp.g *= a;
       tmp.b *= a;
       return tmp;
-
-
   }
+
+    friend Color operator*(Color const& b, float a) {
+        auto tmp(b);
+        tmp.r *= a;
+        tmp.g *= a;
+        tmp.b *= a;
+        return tmp;
+    }
+
+    friend Color operator*(Color const& a, Color const& b) {
+        auto tmp(b);
+        tmp.r *= a.r;
+        tmp.g *= a.g;
+        tmp.b *= a.b;
+        return tmp;
+    }
 
     bool operator>(float in) const {
         if (r > in)
