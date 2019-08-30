@@ -44,7 +44,7 @@ std::ostream &operator<<(std::ostream &os, const Sphere &sphere) {
 glm::vec3 Sphere::normal(glm::vec3 const& p) const {
     return glm::normalize(p - center_);
 }
-
+/*
 void Sphere::scale(float x, float y, float z) const {
 
 }
@@ -56,4 +56,4 @@ void Sphere::translate(float x, float y, float z) const {
 void Sphere::rotate(float angle, float x, float y, float z) const {
 
 }
-
+*/

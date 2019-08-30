@@ -27,6 +27,7 @@ void Renderer::render(Scene const& scene) {
     for (int x = 0; x < width_; ++x) {
       Pixel p(x,y);
       Ray ray{scene.camera_->pos_, {x-(float(width_) / 2.0f), y - (float(height_) / 2.0f), -d}};
+     // transformRay(scene.camera_->pos_, {x-(float(width_) / 2.0f), y - (float(height_) / 2.0f), -d});  // Typfehler ??
       ray.direction = glm::normalize(ray.direction);
 
       p.color = trace(ray, scene);
@@ -51,4 +52,16 @@ void Renderer::write(Pixel const& p)
   }
 
   ppm_.write(p);
+}
+
+Ray transformRay(glm::vec3 const& mat , Ray const& ray ){  // Wahrscheinlich noch fehlerhaft
+  glm::vec3 origin{ray.origin};
+  glm::vec3 direction{ray.direction};
+
+  origin = mat * origin;
+  direction = glm::normalize(mat * direction);
+
+  Ray result{{origin.x, origin.y, origin.z},{direction.x, direction.y, direction.z}};
+  return result;
+
 }

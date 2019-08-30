@@ -21,16 +21,25 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Shape &shape);
 
-    virtual HitPoint intersect(Ray &ray) const = 0;
+    virtual HitPoint intersect(Ray const& ray) const = 0;
 
     virtual std::ostream& print(std::ostream &os = std::cout) const;
 
     virtual glm::vec3 normal(glm::vec3 const& p) const = 0;   //point has to be on the object!
 
+
+    void scale(float x,float y,float z);
+
+    void translate(float x,float y,float z);
+
+    void rotate(float angle,float x,float y,float z);
+
+
+
     std::string get_name();
     
 
-public:
+protected:
     
     std::string name_;
     std::shared_ptr<Material> material_;

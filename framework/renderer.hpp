@@ -38,4 +38,6 @@ private:
   PpmWriter ppm_;
 };
 
+Ray transformRay(glm::vec3 const& mat , Ray const& ray );
+
 #endif // #ifndef BUW_RENDERER_HPP

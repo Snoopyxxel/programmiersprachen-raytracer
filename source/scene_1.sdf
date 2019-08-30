@@ -13,4 +13,9 @@ define light  sun  -30 0.0 -50  1.0 1.0 1.0  0.9
 define camera  cam_1  0.0 0.0 0.0  0.0 0.0 -1.0  0.0 0.0 1.0  1.0f
                ambient_light_(value)
 define ambient 0.5
-# define render
+# transform name tranformation parameter
+transform  b_1 scale 2 4 2
+transform b_1 translate 3 0 2
+transform b_1 rotate 45 1 0 0
+
+render

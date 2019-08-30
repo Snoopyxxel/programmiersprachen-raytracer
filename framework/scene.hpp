@@ -212,34 +212,81 @@ static void get_SDF_File(std::string const& path,Scene& scene){      // Freie fk
             current_line_string_stream >> shape_to_manipul;
 
             auto it_trans = scene.shape_list.begin();
-
+            bool found = false; 
+          
             for (it_trans ; it_trans != scene.shape_list.end(); ++it_trans){
                 if((**it_trans).get_name() == shape_to_manipul){
+                    found = true;
                     std::cout << "My name is : " << (**it_trans).get_name() << "\n";
-                 }
+                    break;
+                }
             }
+            if (!found)  {
+                std::cout << "found not the shape \n";
+                }else{
+                std::cout << "found the shape :" << (**it_trans).get_name() << " \n\n";
+                          
             
-            current_line_string_stream >> identifier;
+                current_line_string_stream >> identifier;
 
-            if("scale" == identifier){
-              std::cout << "this is if  scale  \n";
+                if("scale" == identifier){
+                    std::cout << "this is if  scale  \n";
 
-                float x;
-                float y;
-                float z;
+                    float x;
+                    float y;
+                    float z;
 
-                current_line_string_stream >> x;
-                current_line_string_stream >> y;
-                current_line_string_stream >> z;
+                    current_line_string_stream >> x;
+                    current_line_string_stream >> y;
+                    current_line_string_stream >> z;
+                    std::cout << "x ,y, z  scale :" << x << y << z << "  \n";
             
-				//(**it_trans).scale(x,y,z);
+				    (**it_trans).scale(x,y,z);
 
-                std::cout<< "after scaling << " << (**it_trans).get_name() << " \n";
+                    std::cout<< "after scaling << " << (**it_trans).get_name()
+                     << " funktion scale methode in shape klasse wie in 7.5 gefordert implementiert,"
+                     << " aber bei anwendung im renderer auf auf den ray noch uebergabe-probleme !!! \n\n";
 
+                }else if("translate" == identifier){
+                    std::cout << "this is if  translate :  \n";
+
+                    float x;
+                    float y;
+                    float z;
+
+                    current_line_string_stream >> x;
+                    current_line_string_stream >> y;
+                    current_line_string_stream >> z;
+                    std::cout << "x ,y, z  scale :" << x << y << z << "  \n";
+            
+				    (**it_trans).translate(x,y,z);
+
+                    std::cout<< "after translate << " << (**it_trans).get_name()
+                     << " funktion translate methode in shape klasse wie in 7.5 gefordert implementiert,"
+                     << " aber bei anwendung im renderer auf auf den ray noch uebergabe-probleme !!! \n\n";
+
+                }else if("rotate" == identifier){
+                    std::cout << "this is if  rotate :  \n";
+
+                    float angle;
+                    float x;
+                    float y;
+                    float z;
+
+                    current_line_string_stream >> angle;
+                    current_line_string_stream >> x;
+                    current_line_string_stream >> y;
+                    current_line_string_stream >> z;
+                    std::cout << "angle, x ,y, z  scale :" << angle << x << y << z << "  \n";
+            
+				    (**it_trans).rotate(angle,x,y,z);
+
+                    std::cout<< "after rotate << " << (**it_trans).get_name()
+                     << " funktion rotate methode in shape klasse wie in 7.5 gefordert implementiert,"
+                     << " aber bei anwendung im renderer auf auf den ray noch uebergabe-probleme !!! \n\n";
+
+                }
             }
-
-            
-
         } 
 
         if("render" == identifier) {
