@@ -27,9 +27,9 @@ std::ostream& Shape::print(std::ostream &os) const {
     return os;
 }
 
-std::string Shape::get_name(){
+std::string Shape::get_name() const {
         return name_;
-    };
+    }
 
 void Shape::scale(float x,float y,float z){
 
@@ -112,4 +112,12 @@ void Shape::rotate(float angle,float x,float y,float z){
 
     std::cout << "hello from rotate Shape.cpp \n";
 
+}
+
+const glm::mat4 &Shape::getWorldTransformation() const {
+    return world_transformation_;
+}
+
+const glm::mat4 &Shape::getWorldTransformationInv() const {
+    return world_transformation_inv_;
 }

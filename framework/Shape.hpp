@@ -34,9 +34,11 @@ public:
 
     void rotate(float angle,float x,float y,float z);
 
+    const glm::mat4 &getWorldTransformation() const;
 
+    const glm::mat4 &getWorldTransformationInv() const;
 
-    std::string get_name();
+    std::string get_name() const;
     
 
 protected:

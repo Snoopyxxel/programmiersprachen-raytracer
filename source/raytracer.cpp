@@ -43,18 +43,22 @@ int main(int argc, char* argv[])
   sc_1.shape_list.push_back(ptr_sph_1);
   sc_1.shape_list.push_back(ptr_bo_1);
 */
+    Scene sc_sdf{};
+    std::shared_ptr<Renderer> renderer;
 
-  Scene sc_sdf{}; 
-  get_SDF_File("/scene/scene_1.sdf", sc_sdf);
+  if(argc > 1 and argc <= 3){
+      get_SDF_File(argv[1], sc_sdf);
+      renderer = std::make_shared<Renderer>(Renderer{image_width, image_height, argv[2]});
+  } else{
+      get_SDF_File("/scene/scene_1.sdf", sc_sdf);
 
-  Renderer renderer{image_width, image_height, filename};
-  Renderer renderer_sdf{image_width, image_height, filename};
+      renderer = std::make_shared<Renderer>(Renderer{image_width, image_height, filename});
+  }
   
   //create separate thread to see updates of pixels while rendering
   //std::thread render_thread([&renderer]() {renderer.render();});
 
-  //renderer.render(sc_1);   // direct- without scene-testing
-  renderer_sdf.render(sc_sdf);
+  renderer->render(sc_sdf);
 
   Window window{{image_width, image_height}};
 
@@ -62,8 +66,7 @@ int main(int argc, char* argv[])
     if (window.get_key(GLFW_KEY_ESCAPE) == GLFW_PRESS) {
       window.close();
     }
-    //window.show(renderer.color_buffer());   // direct- without scene-testing
-    window.show(renderer_sdf.color_buffer());
+    window.show(renderer->color_buffer());
   }
 
   //"join" threads, i.e. synchronize main thread with render_thread
