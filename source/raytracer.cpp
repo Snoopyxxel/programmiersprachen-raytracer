@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
 
   renderer->render(sc_sdf);
 
+
   Window window{{image_width, image_height}};
 
   while (!window.should_close()) {
@@ -68,6 +69,7 @@ int main(int argc, char* argv[])
     }
     window.show(renderer->color_buffer());
   }
+
 
   //"join" threads, i.e. synchronize main thread with render_thread
   //render_thread.join();
